@@ -1,4 +1,4 @@
-exp-mode: "level" # points 或 level
+exp-mode: "level" # points 或 level  dddd
 # 点券强化消耗（PlayerPoints）
 money-cost: 10
 # 经验强化消耗（总经验值，非等级）
