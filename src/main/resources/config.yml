@@ -1,0 +1,15 @@
+exp-mode: "level" # points 或 level
+# 点券强化消耗（PlayerPoints）
+money-cost: 10
+# 经验强化消耗（总经验值，非等级）
+exp-cost: 5
+command:
+  enable-cost: false
+  money-cost: 20
+  exp-cost: 10
+
+success-message: "<green>强化成功！"
+fail-message: "<red>资源不足！"
+no-item-message: "<red>请手持一个物品！"
+already-message: "<yellow>该物品已经是无法破坏！"
+no-permission: "<red>你没有权限！"

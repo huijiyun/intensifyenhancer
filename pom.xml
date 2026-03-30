@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>cn.huiji</groupId>
+  <artifactId>IntensifyEnhancer</artifactId>
+  <version>1.5-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>IntensifyEnhancer</name>
+
+  <properties>
+    <java.version>21</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <defaultGoal>clean package</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <!-- 不需要 maven-shade-plugin，因为所有依赖都是 provided -->
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
+
+  <repositories>
+    <!-- PaperMC 仓库 -->
+    <repository>
+      <id>papermc-repo</id>
+      <url>https://repo.papermc.io/repository/maven-public/</url>
+    </repository>
+    <!-- PlayerPoints 官方仓库（推荐） -->
+    <repository>
+      <id>black-ixx-repo</id>
+      <url>https://repo.rosewooddev.io/repository/public/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- Paper API（提供 Adventure MiniMessage 等） -->
+    <dependency>
+      <groupId>io.papermc.paper</groupId>
+      <artifactId>paper-api</artifactId>
+      <version>1.21.11-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- PlayerPoints API（仅编译时需要，运行时由插件提供） -->
+    <dependency>
+      <groupId>org.black_ixx</groupId>
+      <artifactId>PlayerPoints</artifactId>
+      <version>3.3.3</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+</project>

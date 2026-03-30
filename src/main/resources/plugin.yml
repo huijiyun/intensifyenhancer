@@ -1,0 +1,20 @@
+name: IntensifyEnhancer
+version: 1.5
+main: cn.huiji.intensifyenhancer.IntensifyEnhancer
+api-version: 1.21
+depend:
+   - PlayerPoints
+
+commands:
+  ie:
+    description: IntensifyEnhancer 主命令
+    usage: /<command> gui
+    aliases: [intensify]
+
+permissions:
+  ie.admin:
+    description: 管理员权限（重载配置等）
+    default: op
+  ie.un:
+    description: 是否允许使用无法破坏强化
+    default: op
