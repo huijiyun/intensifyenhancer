@@ -6,7 +6,7 @@
 
   <groupId>cn.huiji</groupId>
   <artifactId>IntensifyEnhancer</artifactId>
-  <version>1.5-SNAPSHOT</version>
+  <version>1.6</version>
   <packaging>jar</packaging>
 
   <name>IntensifyEnhancer</name>
@@ -18,7 +18,10 @@
 
   <build>
     <defaultGoal>clean package</defaultGoal>
+
     <plugins>
+
+      <!-- 编译 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -28,8 +31,39 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
-      <!-- 不需要 maven-shade-plugin，因为所有依赖都是 provided -->
+
+      <!-- ⭐ 关键：打包 bStats -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.5.1</version>
+
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+
+            <configuration>
+              <!-- 防止 bStats 和其他插件冲突 -->
+              <relocations>
+                <relocation>
+                  <pattern>org.bstats</pattern>
+                  <shadedPattern>cn.huiji.libs.bstats</shadedPattern>
+                </relocation>
+              </relocations>
+
+              <!-- 不生成 dependency-reduced-pom -->
+              <createDependencyReducedPom>false</createDependencyReducedPom>
+            </configuration>
+
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
+
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -39,12 +73,11 @@
   </build>
 
   <repositories>
-    <!-- PaperMC 仓库 -->
     <repository>
       <id>papermc-repo</id>
       <url>https://repo.papermc.io/repository/maven-public/</url>
     </repository>
-    <!-- PlayerPoints 官方仓库（推荐） -->
+
     <repository>
       <id>black-ixx-repo</id>
       <url>https://repo.rosewooddev.io/repository/public/</url>
@@ -52,7 +85,8 @@
   </repositories>
 
   <dependencies>
-    <!-- Paper API（提供 Adventure MiniMessage 等） -->
+
+    <!-- Paper API -->
     <dependency>
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper-api</artifactId>
@@ -60,12 +94,21 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- PlayerPoints API（仅编译时需要，运行时由插件提供） -->
+    <!-- bStats（必须打包） -->
+    <dependency>
+      <groupId>org.bstats</groupId>
+      <artifactId>bstats-bukkit</artifactId>
+      <version>3.2.1</version>
+    </dependency>
+
+    <!-- PlayerPoints -->
     <dependency>
       <groupId>org.black_ixx</groupId>
       <artifactId>PlayerPoints</artifactId>
       <version>3.3.3</version>
       <scope>provided</scope>
     </dependency>
+
   </dependencies>
+
 </project>
