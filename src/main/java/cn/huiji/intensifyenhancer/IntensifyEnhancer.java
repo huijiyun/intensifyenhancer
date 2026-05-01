@@ -3,6 +3,8 @@ package cn.huiji.intensifyenhancer;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.black_ixx.playerpoints.PlayerPoints;
 import org.black_ixx.playerpoints.PlayerPointsAPI;
+import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.*;
@@ -11,9 +13,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
@@ -50,7 +52,15 @@ public final class IntensifyEnhancer extends JavaPlugin implements Listener, Tab
         Objects.requireNonNull(getCommand("ie")).setTabCompleter(this);
 
         getLogger().info("强化插件已启用！");
+        int pluginId = 31013;
+        Metrics metrics = new Metrics(this, pluginId);
+
+        // Optional: Add custom charts
+        metrics.addCustomChart(
+                new SimplePie("chart_id", () -> "My value"));
+
     }
+
 
     private void loadConfigValue() {
         reloadConfig();
